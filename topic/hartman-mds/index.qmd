@@ -25,7 +25,6 @@ Statistical Data Science
 - also known as MDS
 - used to quantitatively estimate and visualize similarity among items within a
 group
-- reduces complex data sets
 - takes ratings, proximity measurements, or perceptual measurements of
 similarity as input and outputs a map of data points
 - similar items are located closer together
@@ -56,9 +55,32 @@ dimensions from 1 to $r$
 the $i\text{th}$ row in $X$
 - each distance $d_{ij}$ is an entry in $D$
 
-## Metric CMDS
+## Metric vs Nonmetric CMDS
 
-## Nonmetric CMDS
+<style>
+.reveal .tchart table {
+  table-layout: fixed;
+  width: 100%;
+}
+.reveal .tchart table td,
+.reveal .tchart table th {
+  width: 50%;
+}
+.reveal .tchart table td:first-child,
+.reveal .tchart table th:first-child {
+  border-right: 2px solid gray !important;
+}
+</style>
+
+::: {.tchart}
+| Metric CMDS | Nonmetric CMDS |
+|:-:|:-:|
+| Ratio or interval data | Ordinal data allowed |
+| Complete matrix only | Missing values allowed |
+| Symmetric only | Symmetric or asymmetric |
+| Euclidean distance | Euclidean or Minkowski distances |
+| $\ell\{S\} = D + E$ | $m\{S\} = D + E$ |
+:::
 
 ## Executable Python
 
