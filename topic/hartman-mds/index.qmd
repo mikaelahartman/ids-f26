@@ -1,0 +1,145 @@
+---
+title: "Multidimensional Scaling"
+subtitle: "Introduction to Data Science | Fall 2026"
+author: "Mikaela Hartman"
+format:
+  revealjs:
+    width: 1280
+    height: 720
+    slide-number: true
+    preview-links: auto
+    theme: default
+    incremental: false
+jupyter: python3
+---
+
+## Who I Am
+
+- Junior
+- Double major in Applied Math and Political Science with a dual degree in
+Statistical Data Science
+- Chose this topic because it is widely applicable to politics (NOMINATE)
+
+## What is Multidimensional Scaling?
+
+- also known as MDS
+- used to quantitatively estimate and visualize similarity among items within a
+group
+- reduces complex data sets
+- takes ratings, proximity measurements, or perceptual measurements of
+similarity as input and outputs a map of data points
+- similar items are located closer together
+- several types of MDS; I'll be discussing Classical MDS, or CMDS
+
+## Applications
+
+1. Mapping
+2. Political Science
+3. Cognition and Psychology
+4. Marketing and Brand Strategy
+5. Ecology
+
+## How CMDS Works
+- $S$ is a similarity matrix in which every item is compared to every other
+item
+- $X$ is an $n \times r$ matrix of coordinates with one row per item for $n$
+items and one column per dimension for $r$ dimensions.
+- $D$ is a distance matrix containing the distances between points in the model
+- the goal of CMDS is to choose $X$ so that $D$ matches $S$ as closely as
+possible
+
+## How CMDS Works (cont.)
+- generally uses Euclidean distance, where the distance between points $i$ and
+$j$ is $d_{ij}=\sqrt{\sum_{a=1}^{r}(x_{ia}-x_{ja})^2}$, where $a$ indexes the
+dimensions from 1 to $r$
+- can also be written as $d_{ij}=[(x_i-x_j)(x_i-x_j)']^{1/2}$, where $x_i$ is
+the $i\text{th}$ row in $X$
+- each distance $d_{ij}$ is an entry in $D$
+
+## Metric CMDS
+
+## Nonmetric CMDS
+
+## Executable Python
+
+Use an executable code cell when the result matters. The source and its
+computed output stay together on the slide:
+
+```{python}
+#| echo: true
+values = [2, 3, 5, 8]
+sum(values) / len(values)
+```
+
+Explain what the output means; do not leave it for the audience to infer.
+
+## Figures from the Same Source
+
+```{python}
+#| label: fig-example
+#| fig-cap: "Four observations used in the example"
+#| fig-align: center
+import matplotlib.pyplot as plt
+
+fig, ax = plt.subplots()
+ax.bar(range(1, 5), values)
+ax.set(xlabel="Observation", ylabel="Value")
+plt.show()
+```
+
+The source, computation, and resulting figure remain together and can be
+reproduced during review.
+
+## Use Images Responsibly
+
+- Prefer figures generated from your own code.
+- Use relative paths for local images.
+- Include informative alternative text.
+- Verify that external images may be redistributed.
+- Attribute the creator and source.
+
+Do not paste an unattributed image from a search result into the repository.
+
+## Keep Slides Readable
+
+- Use short statements rather than prose paragraphs.
+- Avoid presenting more code than the audience can follow.
+- Label tables, axes, and important quantities.
+- Define unfamiliar notation and abbreviations.
+- Use incremental lists only when they improve the explanation.
+
+## Connect the Deck to the Notes
+
+The slide deck is published separately from the book. Add a short entry to the
+relevant topical chapter containing:
+
+- the presentation title;
+- the presenter's name;
+- a link to the rendered slides; and
+- a two- or three-sentence abstract.
+
+You do not need to rewrite the deck as a prose section.
+
+## Check Before Opening a Pull Request
+
+From an active course Python environment, run:
+
+```bash
+make render-one FILE=topic/last-name-topic/index.qmd
+```
+
+Then verify the slides in a browser and inspect `git status`. Submit the source
+files, not rendered HTML, caches, or notebook intermediates.
+
+## Takeaways
+
+- A good deck presents one coherent, technically correct story.
+- Executable examples make results inspectable and reproducible.
+- Interpretation and limitations matter as much as code.
+- The pull request is part of the contribution and revision process.
+
+## Sources
+
+- [Quarto presentations](https://quarto.org/docs/presentations/)
+- [RevealJS format options](https://quarto.org/docs/presentations/revealjs/)
+- [Quarto computations with Python](https://quarto.org/docs/computations/python.html)
