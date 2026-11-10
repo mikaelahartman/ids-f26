@@ -15,20 +15,21 @@ jupyter: python3
 
 ## Who I Am
 
-- Junior
-- Double major in Applied Math and Political Science with a dual degree in
-Statistical Data Science
+- Junior double majoring in Applied Mathematical Sciences and Political Science
+with a dual degree in Statistical Data Science (American Political
+Representation concentration)
+- Studying abroad in Amsterdam next semester!
 - Chose this topic because it is widely applicable to politics (NOMINATE)
 
 ## What is Multidimensional Scaling?
 
-- also known as MDS
-- used to quantitatively estimate and visualize similarity among items within a
+- Also known as MDS
+- Used to quantitatively estimate and visualize similarity among items within a
 group
-- takes ratings, proximity measurements, or perceptual measurements of
+- Takes proximity measurements, ratings, or perceptual measurements of
 similarity as input and outputs a map of data points
-- similar items are located closer together
-- several types of MDS; I'll be discussing Classical MDS, or CMDS
+- Similar items are located closer together
+- Several types of MDS; I'll be discussing Classical MDS, or CMDS
 
 ## Applications
 
@@ -44,16 +45,16 @@ item
 - $X$ is an $n \times r$ matrix of coordinates with one row per item for $n$
 items and one column per dimension for $r$ dimensions.
 - $D$ is a distance matrix containing the distances between points in the model
-- the goal of CMDS is to choose $X$ so that $D$ matches $S$ as closely as
+- The goal of CMDS is to choose $X$ so that $D$ matches $S$ as closely as
 possible
 
 ## How CMDS Works (cont.)
-- generally uses Euclidean distance, where the distance between points $i$ and
+- Generally uses Euclidean distance, where the distance between points $i$ and
 $j$ is $d_{ij}=\sqrt{\sum_{a=1}^{r}(x_{ia}-x_{ja})^2}$, where $a$ indexes the
 dimensions from 1 to $r$
-- can also be written as $d_{ij}=[(x_i-x_j)(x_i-x_j)']^{1/2}$, where $x_i$ is
-the $i\text{th}$ row in $X$
-- each distance $d_{ij}$ is an entry in $D$
+- Can also be written as $d_{ij}=[(x_i-x_j)(x_i-x_j)']^{1/2}$, where $x_i$ and
+$x_j$ are the $i\text{th}$ and $j\text{th}$ rows in $X$, respectively
+- Each distance $d_{ij}$ is an entry in $D$
 
 ## Metric vs Nonmetric CMDS
 
@@ -79,56 +80,246 @@ the $i\text{th}$ row in $X$
 | Complete matrix only | Missing values allowed |
 | Symmetric only | Symmetric or asymmetric |
 | Euclidean distance | Euclidean or Minkowski distances |
-| $\ell\{S\} = D + E$ | $m\{S\} = D + E$ |
 :::
 
-## Executable Python
-
-Use an executable code cell when the result matters. The source and its
-computed output stay together on the slide:
+## Example: Creating S
+$S$ contains distances between cities I'd like to visit when I'm abroad,
+specifically: Paris, Munich, Brussels, Zurich, Stockholm, Prague, Dubrovnik,
+and, of course, Amsterdam.
 
 ```{python}
 #| echo: true
-values = [2, 3, 5, 8]
-sum(values) / len(values)
+import numpy as np
+
+S = np.array([
+  [0, 426, 164, 304, 961, 550, 872, 267],
+  [426, 0, 375, 151, 818, 187, 495, 416],
+  [164, 375, 0, 306, 797, 447, 862, 108],
+  [304, 151, 306, 0, 914, 328, 571, 382],
+  [961, 818, 797, 914, 0, 655, 1154, 701],
+  [550, 187, 447, 328, 655, 0, 544, 442],
+  [872, 495, 862, 571, 1154, 544, 0, 911],
+  [267, 416, 108, 382, 701, 442, 911, 0],
+])
 ```
 
-Explain what the output means; do not leave it for the audience to infer.
+Notice that $S$ is complete, symmetric, and contains ratio data, so this will
+be metric CMDS.
 
-## Figures from the Same Source
+## Example: Creating X
 
 ```{python}
-#| label: fig-example
-#| fig-cap: "Four observations used in the example"
+#| echo: true
+from sklearn.manifold import MDS
+
+X = MDS(
+  n_components=2, metric="precomputed", random_state=3255
+).fit_transform(S)
+np.round(X).astype(int)
+```
+
+::: {style="font-size: 0.8em;"}
+**n-components**: dimensions of visualization
+
+**metric**: "euclidean" (default) or "precomputed" (S is already a square
+distance matrix)
+
+**random_state**: initializes the center with a random number generator,
+allowing reproducible results
+:::
+
+
+## Example: Creating D
+
+```{python}
+#| echo: true
+from scipy.spatial.distance import pdist, squareform
+
+D = squareform(pdist(X))
+print("D:")
+print(np.round(D).astype(int))
+print("\nS:")
+print(S)
+```
+
+## Example: Visualization
+```{python}
+#| echo: true
+#| output: false
 #| fig-align: center
 import matplotlib.pyplot as plt
 
-fig, ax = plt.subplots()
-ax.bar(range(1, 5), values)
-ax.set(xlabel="Observation", ylabel="Value")
+cities = [
+  "Paris", "Munich", "Brussels", "Zurich",
+  "Stockholm", "Prague", "Dubrovnik", "Amsterdam"
+]
+
+fig1, ax1 = plt.subplots()
+ax1.scatter(X[:, 0], X[:, 1])
+ax1.set_aspect("equal")
+for i, city in enumerate(cities):
+  plt.annotate(
+    city, (X[i, 0], X[i, 1]), textcoords="offset points", xytext=(5, 5)
+  )
+
 plt.show()
 ```
 
-The source, computation, and resulting figure remain together and can be
-reproduced during review.
+## Example: Visualization (cont.)
+```{python}
+#| echo: false
+#| output: true
+#| fig-align: center
+import matplotlib.pyplot as plt
 
-## Use Images Responsibly
+cities = [
+  "Paris", "Munich", "Brussels", "Zurich",
+  "Stockholm", "Prague", "Dubrovnik", "Amsterdam"
+]
 
-- Prefer figures generated from your own code.
-- Use relative paths for local images.
-- Include informative alternative text.
-- Verify that external images may be redistributed.
-- Attribute the creator and source.
+fig1, ax1 = plt.subplots()
+ax1.scatter(X[:, 0], X[:, 1])
+ax1.set_aspect("equal")
+for i, city in enumerate(cities):
+  plt.annotate(
+    city, (X[i, 0], X[i, 1]), textcoords="offset points", xytext=(5, 5)
+  )
 
-Do not paste an unattributed image from a search result into the repository.
+plt.show()
+```
 
-## Keep Slides Readable
+## Example: Visualization (cont.)
+```{python}
+#| echo: true
+#| output: false
+#| fig-align: center
+import matplotlib.pyplot as plt
 
-- Use short statements rather than prose paragraphs.
-- Avoid presenting more code than the audience can follow.
-- Label tables, axes, and important quantities.
-- Define unfamiliar notation and abbreviations.
-- Use incremental lists only when they improve the explanation.
+X_flipped = X * np.array([-1, -1])
+
+fig2, ax2 = plt.subplots()
+ax2.scatter(X_flipped[:, 0], X_flipped[:, 1])
+ax2.set_aspect("equal")
+
+for i, city in enumerate(cities):
+  plt.annotate(
+    city, (X_flipped[i, 0], X_flipped[i, 1]),
+    textcoords="offset points", xytext=(5, 5)
+  )
+
+plt.show()
+```
+
+This step is only necessary if MDS is being used to visualize locations, which
+have a specific orientation. For visualizing abstract similarity data, the
+vertical or horizontal orientation of the points doesn't matter, because the
+distances between them remain the same.
+
+## Example: Visualization (cont.)
+```{python}
+#| echo: false
+#| output: true
+#| fig-align: center
+import matplotlib.pyplot as plt
+
+X_flipped = X * np.array([-1, -1])
+
+fig2, ax2 = plt.subplots()
+ax2.scatter(X_flipped[:, 0], X_flipped[:, 1])
+ax2.set_aspect("equal")
+
+for i, city in enumerate(cities):
+  plt.annotate(
+    city, (X_flipped[i, 0], X_flipped[i, 1]),
+    textcoords="offset points", xytext=(5, 5)
+  )
+
+plt.show()
+```
+
+One last transformation is needed. Dubrovnik is almost exactly due south of
+Stockholm, so the data points need to be rotated.
+
+## Example: Visualization (cont.)
+```{python}
+#| echo: true
+#| output: false
+#| fig-align: center
+import matplotlib.pyplot as plt
+
+theta = np.radians(320)
+R = np.array([
+  [np.cos(theta), -np.sin(theta)],
+  [np.sin(theta), np.cos(theta)],
+])
+
+X_rotated = X_flipped @ R.T
+
+fig3, ax3 = plt.subplots()
+ax3.scatter(X_rotated[:, 0], X_rotated[:, 1])
+ax3.set_aspect("equal")
+
+for i, city in enumerate(cities):
+  plt.annotate(
+    city, (X_rotated[i, 0], X_rotated[i, 1]),
+    textcoords="offset points", xytext=(5, 5)
+  )
+
+plt.show()
+```
+
+## Example: Visualization (cont.)
+```{python}
+#| echo: false
+#| output: true
+#| fig-align: center
+import matplotlib.pyplot as plt
+
+theta = np.radians(320)
+R = np.array([
+  [np.cos(theta), -np.sin(theta)],
+  [np.sin(theta), np.cos(theta)],
+])
+
+X_rotated = X_flipped @ R.T
+
+fig3, ax3 = plt.subplots()
+ax3.scatter(X_rotated[:, 0], X_rotated[:, 1])
+ax3.set_aspect("equal")
+
+for i, city in enumerate(cities):
+  plt.annotate(
+    city, (X_rotated[i, 0], X_rotated[i, 1]),
+    textcoords="offset points", xytext=(5, 5)
+  )
+
+plt.show()
+```
+
+## Example: Visualization Interpretation
+
+::::: {style="font-size: 0.8em;"}
+:::: {.columns .align-center}
+::: {.column width="50%"}
+```{python}
+#| echo: false
+#| fig-align: center
+fig1
+```
+
+:::
+::: {.column width="50%"}
+**What this plot tells us:**
+
+- Amsterdam, Brussels, and Paris are geographically similar
+  - It will likely be easier for me to travel from Amsterdam to Brussels or
+  Paris than it will be for me to travel to Stockholm or Dubrovnik
+- Stockholm is geographically dissimilar to all of the other cities
+  - It is likely that Stockholm experiences the seasons differently than
+  Amsterdam or the other cities I visit; I may have to pack differently
+:::
+::::
+:::::
 
 ## Connect the Deck to the Notes
 
