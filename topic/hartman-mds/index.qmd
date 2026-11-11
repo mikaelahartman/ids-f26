@@ -2,6 +2,7 @@
 title: "Multidimensional Scaling"
 subtitle: "Introduction to Data Science | Fall 2026"
 author: "Mikaela Hartman"
+bibliography: references.bib
 format:
   revealjs:
     width: 1280
@@ -28,8 +29,8 @@ Representation concentration)
 group
 - Takes proximity measurements, ratings, or perceptual measurements of
 similarity as input and outputs a map of data points
-- Similar items are located closer together
-- Several types of MDS; I'll be discussing Classical MDS, or CMDS
+- Similar items are located closer together [@hout2013]
+- Several types of MDS [@young1985]; I'll be discussing Classical MDS, or CMDS
 
 ## Applications
 
@@ -37,16 +38,16 @@ similarity as input and outputs a map of data points
 2. Political Science
 3. Cognition and Psychology
 4. Marketing and Brand Strategy
-5. Ecology
+5. Ecology [@hout2013]
 
 ## How CMDS Works
 - $S$ is a similarity matrix in which every item is compared to every other
-item
+item [@hout2013]
 - $X$ is an $n \times r$ matrix of coordinates with one row per item for $n$
 items and one column per dimension for $r$ dimensions.
 - $D$ is a distance matrix containing the distances between points in the model
 - The goal of CMDS is to choose $X$ so that $D$ matches $S$ as closely as
-possible
+possible [@young1985]
 
 ## How CMDS Works (cont.)
 - Generally uses Euclidean distance, where the distance between points $i$ and
@@ -54,7 +55,7 @@ $j$ is $d_{ij}=\sqrt{\sum_{a=1}^{r}(x_{ia}-x_{ja})^2}$, where $a$ indexes the
 dimensions from 1 to $r$
 - Can also be written as $d_{ij}=[(x_i-x_j)(x_i-x_j)']^{1/2}$, where $x_i$ and
 $x_j$ are the $i\text{th}$ and $j\text{th}$ rows in $X$, respectively
-- Each distance $d_{ij}$ is an entry in $D$
+- Each distance $d_{ij}$ is an entry in $D$ [@young1985]
 
 ## Metric vs Nonmetric CMDS
 
@@ -81,9 +82,12 @@ $x_j$ are the $i\text{th}$ and $j\text{th}$ rows in $X$, respectively
 | Symmetric only | Symmetric or asymmetric |
 | Euclidean distance | Euclidean or Minkowski distances |
 :::
+::: footer
+Source: [@young1985]
+:::
 
 ## Example: Creating S
-$S$ contains distances between cities I'd like to visit when I'm abroad,
+$S$ contains distances in miles between cities I'd like to visit when I'm abroad,
 specifically: Paris, Munich, Brussels, Zurich, Stockholm, Prague, Dubrovnik,
 and, of course, Amsterdam.
 
@@ -119,13 +123,13 @@ np.round(X).astype(int)
 ```
 
 ::: {style="font-size: 0.8em;"}
-**n-components**: dimensions of visualization
+**n_components**: dimensions of visualization
 
 **metric**: "euclidean" (default) or "precomputed" (S is already a square
 distance matrix)
 
 **random_state**: initializes the center with a random number generator,
-allowing reproducible results
+allowing reproducible results [@scikitlearnmds]
 :::
 
 
@@ -321,38 +325,29 @@ fig1
 ::::
 :::::
 
-## Connect the Deck to the Notes
+## Limitations
 
-The slide deck is published separately from the book. Add a short entry to the
-relevant topical chapter containing:
+- Using MDS for locations risks creating a plot where data points aren't in
+their cardinal positions
+- Maps relative relationships, not absolute measurements
+- Doesn't remove subjectivity of similarity measurements [@grover2010]
 
-- the presentation title;
-- the presenter's name;
-- a link to the rendered slides; and
-- a two- or three-sentence abstract.
+## Key Takeaways
 
-You do not need to rewrite the deck as a prose section.
-
-## Check Before Opening a Pull Request
-
-From an active course Python environment, run:
-
-```bash
-make render-one FILE=topic/last-name-topic/index.qmd
-```
-
-Then verify the slides in a browser and inspect `git status`. Submit the source
-files, not rendered HTML, caches, or notebook intermediates.
-
-## Takeaways
-
-- A good deck presents one coherent, technically correct story.
-- Executable examples make results inspectable and reproducible.
-- Interpretation and limitations matter as much as code.
-- The pull request is part of the contribution and revision process.
+- MDS helps quantify and visualize abstract similarity data and relative
+position data for locations
+- There are many types of MDS, the simplest and strictest being CMDS
+- Even MDS maps for locations that don't output data points in their cardinal
+position can be useful
 
 ## Sources
 
-- [Quarto presentations](https://quarto.org/docs/presentations/)
-- [RevealJS format options](https://quarto.org/docs/presentations/revealjs/)
-- [Quarto computations with Python](https://quarto.org/docs/computations/python.html)
+::: {#refs}
+:::
+
+## Further Reading
+
+- [Hout et al. (2013)](https://pmc.ncbi.nlm.nih.gov/articles/PMC3555222/)
+- [Young (1985)](https://ccrma.stanford.edu/~unjung/mylec/mds.html)
+- [Errickson (2017)](https://dept.stat.lsa.umich.edu/~jerrick/courses/stat701/notes/mds.html)
+- [B2B International](https://www.b2binternational.com/experience/methods/faq/multidimensional-scaling/)
