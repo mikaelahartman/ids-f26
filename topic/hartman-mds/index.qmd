@@ -34,11 +34,13 @@ similarity as input and outputs a map of data points
 
 ## Applications
 
-1. Mapping
-2. Political Science
-3. Cognition and Psychology
-4. Marketing and Brand Strategy
-5. Ecology [@hout2013]
+1. Mapping [@young1985]
+2. Political Science 
+   - NOMINATE: an MDS tool used to estimate spatial coordinates between
+     political choices, notably voting history of legislators [@poole1985]
+3. Cognition and Psychology [@hornberger2009]
+4. Marketing and Brand Strategy [@carroll1997]
+5. Ecology [@kenkel1986]
 
 ## How CMDS Works
 - $S$ is a similarity matrix in which every item is compared to every other
@@ -347,7 +349,31 @@ position can be useful
 
 ## Further Reading
 
-- [Hout et al. (2013)](https://pmc.ncbi.nlm.nih.gov/articles/PMC3555222/)
-- [Young (1985)](https://ccrma.stanford.edu/~unjung/mylec/mds.html)
-- [Errickson (2017)](https://dept.stat.lsa.umich.edu/~jerrick/courses/stat701/notes/mds.html)
-- [B2B International](https://www.b2binternational.com/experience/methods/faq/multidimensional-scaling/)
+::: {style="font-size: 0.65em; line-height: 1.3;"}
+
+::: {style="padding-left: 1.5em; text-indent: -1.5em; margin-bottom: 0.4em;"}
+Hout, Michael, Megan Papesh, and Stephen Goldinger. 2013. “Multidimensional Scaling.” *Wiley Interdisciplinary Reviews: Cognitive Science* 4 (1): 93–103. <https://pmc.ncbi.nlm.nih.gov/articles/PMC3555222/>.
+:::
+
+::: {style="padding-left: 1.5em; text-indent: -1.5em; margin-bottom: 0.4em;"}
+Young, Forrest. 1985. “Multidimensional Scaling.” In *Encyclopedia of Statistical Sciences*, edited by Samuel Kotz and Norman Johnson. Vol. 5. John Wiley & Sons, Inc. <https://ccrma.stanford.edu/~unjung/mylec/mds.html>.
+:::
+
+::: {style="padding-left: 1.5em; text-indent: -1.5em; margin-bottom: 0.4em;"}
+Errickson, Josh. 2017. “Multidimensional Scaling.” University of Michigan Statistics 701 Course Notes. <https://dept.stat.lsa.umich.edu/~jerrick/courses/stat701/notes/mds.html>.
+:::
+
+::: {style="padding-left: 1.5em; text-indent: -1.5em; margin-bottom: 0.4em;"}
+B2B International. n.d. “What Is Multidimensional Scaling?” <https://www.b2binternational.com/experience/methods/faq/multidimensional-scaling/>.
+:::
+
+:::
+
+## AI Disclosure
+
+I used Claude to:
+
+- find sources to conduct research,
+- format slides with tables and plots,
+- debug code, and
+- create my BibTeX entries.
