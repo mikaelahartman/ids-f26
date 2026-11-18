@@ -3,4 +3,10 @@
 Student presentations in this chapter concern statistical reasoning,
 prediction, dimension reduction, clustering, and supervised learning.
 
-Presentations will be added during the semester.
+**Topic presentation:**
+[Multidimensional Scaling](../topic/hartman-mds/) by Mikaela Hartman
+
+This presentation introduces multidimensional scaling, a tool for modeling
+high-dimensional pairwise data in a low-dimensional space. It includes one
+low-dimensional and one high-dimensional example of metric multidimensional
+scaling and discusses limitations of the method.
